@@ -135,7 +135,7 @@ def ingest_dummy_data():
         random_counter_party = fake.random_element(elements=counterpartyList)
         instrument_id = str(uuid.uuid4())
         instrument_name = fake.random_element(elements=instrumentList)
-        trd_time = fake.date_time_between(start_date = "-4y",end_date="now")
+        trade_time = fake.date_time_between(start_date = "-4y",end_date="now")
         traderdrname = fake.random_element(elements=trader_names)
         traderdetails = new_data.id
         trade_new_data = Trade(asset_class = random_asset_class,
