@@ -131,21 +131,20 @@ def ingest_dummy_data():
                                     quantity = random_quantity)
         session.add(new_data)
         session.commit()
-
         random_asset_class = fake.random_element(elements=assetClassList)
         random_counter_party = fake.random_element(elements=counterpartyList)
-        ins_id = str(uuid.uuid4())
-        ins_name = fake.random_element(elements=instrumentList)
+        instrument_id = str(uuid.uuid4())
+        instrument_name = fake.random_element(elements=instrumentList)
         trd_time = fake.date_time_between(start_date = "-4y",end_date="now")
-        trdrname = fake.random_element(elements=trader_names)
-        trddetails = new_data.id
+        traderdrname = fake.random_element(elements=trader_names)
+        traderdetails = new_data.id
         trade_new_data = Trade(asset_class = random_asset_class,
                                counterparty = random_counter_party,
-                               instrument_id = ins_id,
-                               instrument_name = ins_name,
+                               instrument_id = instrument_id,
+                               instrument_name = instrument_name,
                                trade_date_time = trd_time,
-                               trader = trdrname,
-                               trade_details = trddetails)
+                               trader = traderdrname,
+                               trade_details = traderdetails)
         session.add(trade_new_data)
         session.commit()
 ingest_dummy_data()
