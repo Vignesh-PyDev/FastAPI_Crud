@@ -18,8 +18,7 @@ try running the following command.
 
 ```sh
 $ python -V
-6.4.1
-
+Python 3.10.6
 ```
 
 ## Table of contents
