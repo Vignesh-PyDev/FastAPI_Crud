@@ -142,7 +142,7 @@ def ingest_dummy_data():
                                counterparty = random_counter_party,
                                instrument_id = instrument_id,
                                instrument_name = instrument_name,
-                               trade_date_time = trd_time,
+                               trade_date_time = trade_time,
                                trader = traderdrname,
                                trade_details = traderdetails)
         session.add(trade_new_data)
