@@ -13,7 +13,7 @@ from functions import fetch_data
 models.Base.metadata.create_all(bind=engine)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-steel_eye_task = FastAPI(debug=False)
+steel_eye_task = FastAPI(debug=False,description="Steel Eye Data Engineer Task")
 add_pagination(steel_eye_task)
 
 columns_list = '''Available Sorting Options \n\n Please Copy/Paste as it is
@@ -41,7 +41,7 @@ extraSortValues = ["price",'quantity','buySellIndicator']
 async def get_all(request:Request,sort_by: str = None):
     db = SessionLocal()
     query_params = dict(request.query_params)
-    if query_params['sort_by'] in extraSortValues:
+    if query_params.get('sort_by') in extraSortValues:
         query = db.query(models.Trade).all()
         return paginate(fetch_data(query, sort_by))
     else:
@@ -87,7 +87,7 @@ async def searchTrade(request:Request,counter_party: str = None, instrument_name
             models.Trade.trader.like(trader_name)
         )
     )
-    if query_params['sort_by'] in extraSortValues:
+    if query_params.get('sort_by') in extraSortValues:
         query = query = search_api_query.all()
         return paginate(fetch_data(query, sort_by))
     else:
@@ -97,7 +97,7 @@ async def searchTrade(request:Request,counter_party: str = None, instrument_name
 @steel_eye_task.get("/api/filter/", response_model=Page[schema.Trade], name="Get Filtered Trades", description=columns_list)
 async def filterTrades(request:Request,maxPrice: int = None, minPrice: int = None,
                        assetClass: str = None, end: date | None = None,
-                       start: date | None = None, tradeType: str | None = ["SELL", "BUY"], sort_by: str = None):
+                       start: date | None = None, tradeType: str | None = ["SELL", "BUY"], sort_by: str|None = None):
     db = SessionLocal()
     query_params = dict(request.query_params)
     try:
@@ -113,7 +113,7 @@ async def filterTrades(request:Request,maxPrice: int = None, minPrice: int = Non
                 optional_api_query = optional_api_query.filter(models.TradeDetails.price <= query_params["maxPrice"])
             if ("end" in query_params) and ("start" in query_params):
                 optional_api_query = optional_api_query.filter(models.Trade.trade_date_time.between(query_params["start"],query_params['end']))
-            if query_params['sort_by'] in extraSortValues:
+            if query_params.get('sort_by') in extraSortValues:
                 query = query = optional_api_query.all()
                 return paginate(fetch_data(query, sort_by))
             else:
