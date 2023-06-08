@@ -1,21 +1,25 @@
-[![PyPI version](https://badge.fury.io/py/fastapi.svg)](https://badge.fury.io/py/fastapi)
-[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
+![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
+![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)
+![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
+![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
 # Project Name
 
-> Write a project description
+> Building a REST API with endpoints serving Trade data from a mocked database.
 
 ## Prerequisites
 
-This project requires NodeJS (version 8 or later) and NPM.
-[Node](http://nodejs.org/) and [NPM](https://npmjs.org/) are really easy to install.
+This project requires Python (version 3.6 or later),virtual environment,Postman for API Testing,Database for data Storage and Retreival.
 To make sure you have them available on your machine,
 try running the following command.
 
 ```sh
-$ npm -v && node -v
+$ python -V
 6.4.1
-v8.16.0
+
 ```
 
 ## Table of contents
@@ -27,19 +31,12 @@ v8.16.0
   - [Installation](#installation)
   - [Usage](#usage)
     - [Serving the app](#serving-the-app)
-    - [Running the tests](#running-the-tests)
-    - [Building a distribution version](#building-a-distribution-version)
-    - [Serving the distribution version](#serving-the-distribution-version)
   - [API](#api)
     - [useBasicFetch](#usebasicfetch)
       - [Options](#options)
     - [fetchData](#fetchdata)
-  - [Contributing](#contributing)
-  - [Credits](#credits)
-  - [Built With](#built-with)
-  - [Versioning](#versioning)
-  - [Authors](#authors)
-  - [License](#license)
+  
+ 
 
 ## Getting Started
 
@@ -48,6 +45,11 @@ These instructions will get you a copy of the project up and running on your loc
 ## Installation
 
 **BEFORE YOU INSTALL:** please read the [prerequisites](#prerequisites)
+
+Create a virtual environment using the following command:
+```
+$ virtualenv <virtual_env_name>
+$ source <virtual_env_name>/bin/activate```
 
 Start with cloning this repo on your local machine:
 
