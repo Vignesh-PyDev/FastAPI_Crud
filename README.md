@@ -1,9 +1,9 @@
 ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
-![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 ![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green)
 ![Ubuntu](https://img.shields.io/badge/Ubuntu-E95420?style=for-the-badge&logo=ubuntu&logoColor=white)
-![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
 ![Swagger](https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white)
 
 # Project Name
@@ -34,13 +34,12 @@ $ python -V
   - [API](#api)
     - [useBasicFetch](#usebasicfetch)
       - [Options](#options)
-    - [fetchData](#fetchdata)
-  
+    - [fetchData](#fetchdata) 
  
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
 
 ## Installation
 
@@ -51,223 +50,145 @@ Create a virtual environment using the following command:
 $ virtualenv <virtual_env_name>
 $ source <virtual_env_name>/bin/activate```
 
-Start with cloning this repo on your local machine:
+Now cloning this repo on your local machine:
 
 ```sh
-$ git clone https://github.com/ORG/PROJECT.git
+$ git clone https://github.com/Vignesh-PyDev/FastAPI_Crud.git
 $ cd PROJECT
 ```
 
 To install and set up the library, run:
 
 ```sh
-$ npm install -S myLib
+$ pip install -r requirements.txt
 ```
 
-Or if you prefer using Yarn:
+Now,the we need to ingest some data for testing the API's for that,
 
-```sh
-$ yarn add --dev myLib
 ```
+$ python3 data_ingestion.py
+
+```
+It will ingest data to our local SQLlite Database.
 
 ## Usage
 
 ### Serving the app
 
-```sh
-$ npm start
+```
+$ uvicorn main:steel_eye_task --reload
 ```
 
-### Running the tests
+### API #1 --> /api/trade/all
 
-```sh
-$ npm test
-```
+### Listing trades:
 
-### Building a distribution version
+Lists all available trades,
 
-```sh
-$ npm run build
-```
+### API #1.1 /api/trade/all?sort_by=price&page=1&size=records_per_page
 
-This task will create a distribution version of the project
-inside your local `dist/` folder
+I have given support to sort/paginate the response by adding the query parameters.
 
-### Serving the distribution version
+All those are optional,if no query_params are given the response will be generated with default values.
 
-```sh
-$ npm run serve:dist
-```
 
-This will use `lite-server` for servign your already
-generated distribution version of the project.
+### API #2 --> /api/trade/{ID}
 
-*Note* this requires
-[Building a distribution version](#building-a-distribution-version) first.
+## Single trade:
 
-## API
+Fetch Single Record associated with the given ID.
 
-### useBasicFetch
+### API #3 --> /api/search/?query_params
 
-```js
-useBasicFetch(url: string = '', delay: number = 0)
-```
+### Example:/api/search/?counter_party=eHealth%20Solutions&trader_name=Jack%20Thompson&sort_by=price&page=1&size=50
 
-Supported options and result fields for the `useBasicFetch` hook are listed below.
+## Query Params:
 
-#### Options
+For Sorting:
 
-`url`
+1.trade_id
 
-| Type | Default value |
-| --- | --- |
-| string | '' |
+2.asset_class
 
-If present, the request will be performed as soon as the component is mounted
+3.counterparty
 
-Example:
+4.instrument_id
 
-```tsx
-const MyComponent: React.FC = () => {
-  const { data, error, loading } = useBasicFetch('https://api.icndb.com/jokes/random');
+5.instrument_name
 
-  if (error) {
-    return <p>Error</p>;
-  }
+6.trade_date_time
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+7.trade_details
 
-  return (
-    <div className="App">
-      <h2>Chuck Norris Joke of the day</h2>
-      {data && data.value && <p>{data.value.joke}</p>}
-    </div>
-  );
-};
-```
+8.trader
 
-`delay`
+9.buySellIndicator
 
-| Type | Default value | Description |
-| --- | --- | --- |
-| number | 0 | Time in milliseconds |
+10.price
 
-If present, the request will be delayed by the given amount of time
+11.quantity
 
-Example:
+Search Query Params:
 
-```tsx
-type Joke = {
-  value: {
-    id: number;
-    joke: string;
-  };
-};
+1.counterparty
 
-const MyComponent: React.FC = () => {
-  const { data, error, loading } = useBasicFetch<Joke>('https://api.icndb.com/jokes/random', 2000);
+2.instrumentId
 
-  if (error) {
-    return <p>Error</p>;
-  }
+3.instrumentName
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
+4.trader
 
-  return (
-    <div className="App">
-      <h2>Chuck Norris Joke of the day</h2>
-      {data && data.value && <p>{data.value.joke}</p>}
-    </div>
-  );
-};
-```
+## Searching trades:
 
-### fetchData
+API to search across the trades using the query_params as passed in the URL.
 
-```js
-fetchData(url: string)
-```
+I have given support to sort/paginate the response by adding the query parameters.
 
-Perform an asynchronous http request against a given url
+### API #$ --> /api/filter/?query_params
 
-```tsx
-type Joke = {
-  value: {
-    id: number;
-    joke: string;
-  };
-};
+### Example:/api/filter/?maxPrice=3000&minPrice=300&end=2023-01-31&start=2022-01-01&tradeType=BUy&page=1&size=50
 
-const ChuckNorrisJokes: React.FC = () => {
-  const { data, fetchData, error, loading } = useBasicFetch<Joke>();
-  const [jokeId, setJokeId] = useState(1);
+## Query Params:
 
-  useEffect(() => {
-    fetchData(`https://api.icndb.com/jokes/${jokeId}`);
-  }, [jokeId, fetchData]);
+For Sorting:
+1.trade_id
 
-  const handleNext = () => setJokeId(jokeId + 1);
+2.asset_class
 
-  if (error) {
-    return <p>Error</p>;
-  }
+3.counterparty
 
-  const jokeData = data && data.value;
+4.instrument_id
 
-  return (
-    <div className="Comments">
-      {loading && <p>Loading...</p>}
-      {!loading && jokeData && (
-        <div>
-          <p>Joke ID: {jokeData.id}</p>
-          <p>{jokeData.joke}</p>
-        </div>
-      )}
-      {!loading && jokeData && !jokeData.joke && <p>{jokeData}</p>}
-      <button disabled={loading} onClick={handleNext}>
-        Next Joke
-      </button>
-    </div>
-  );
-};
-```
+5.instrument_name
 
-## Contributing
+6.trade_date_time
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+7.trade_details
 
-1.  Fork it!
-2.  Create your feature branch: `git checkout -b my-new-feature`
-3.  Add your changes: `git add .`
-4.  Commit your changes: `git commit -am 'Add some feature'`
-5.  Push to the branch: `git push origin my-new-feature`
-6.  Submit a pull request :sunglasses:
+8.trader
 
-## Credits
+9.buySellIndicator
 
-TODO: Write credits
+10.price
 
-## Built With
+11.quantity
 
-* Dropwizard - Bla bla bla
-* Maven - Maybe
-* Atom - ergaerga
-* Love
+List of Available Filters:
 
-## Versioning
+1.maxPrice
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).
+2.minPrice
 
-## Authors
+3.assetClass
 
-* **John Doe** - *Initial work* - [JohnDoe](https://github.com/JohnDoe)
+4.start
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+5.end
 
-## License
+6.trade_type
 
-[MIT License](https://andreasonny.mit-license.org/2019) © Andrea SonnY
+## Filter trades:
+
+API to filter trades. Filter the response using filters passed in the URL.
+
+I have given support to sort/paginate the response by adding the query parameters.
